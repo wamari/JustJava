@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -43,8 +44,16 @@ public class MainActivity extends AppCompatActivity {
         //checking if checkbox is checked
         CheckBox whippedCreamCheckbox = findViewById(R.id.whipped_cream_checkbox);
         boolean hasWhippedCream = whippedCreamCheckbox.isChecked();
+
+        CheckBox chocolateCheckbox = findViewById(R.id.chocolate_checkbox);
+        boolean hasChocolate = chocolateCheckbox.isChecked();
+
+        //get name
+        EditText nameEditText = findViewById(R.id.name_EditText);
+        String name = nameEditText.getText().toString();
+
         int price = calculatePrice();
-        String priceMessage = createOrderSummary(price, hasWhippedCream);
+        String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate, name);
         displayMessage(priceMessage);
     }
 
@@ -87,11 +96,15 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param price from calculatePrice() method
      * @param addWhippedCream is whether the user wants whipped cream topping
+     * @param addChocolate is whether the user wants chocolate topping
+     * @param customerName is the customer's name
      * @return the order summary
      */
-    private String createOrderSummary(int price, boolean addWhippedCream){
-        String priceMessage = "Name: Eric Wamari";
-        priceMessage += "\nAdd whipped cream? " + addWhippedCream;
+    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate,
+                                      String customerName){
+        String priceMessage = "Name: " + customerName;
+        priceMessage += "\nAdd Whipped Cream? " + addWhippedCream;
+        priceMessage += "\nAdd Chocolate? " + addChocolate;
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal: Ksh. " + price + "\nThank you!";
         return priceMessage;
