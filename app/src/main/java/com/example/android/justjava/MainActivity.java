@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         if (addChocolate){
             basePrice = basePrice + 2;
         }
-
         return quantity * basePrice;
     }
 
