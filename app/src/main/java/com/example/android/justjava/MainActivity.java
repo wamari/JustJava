@@ -1,11 +1,18 @@
 package com.example.android.justjava;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -14,7 +21,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     //global variable
-    int quantity = 0;
+    int quantity = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +35,25 @@ public class MainActivity extends AppCompatActivity {
      */
 
     public void increment(View view) {
+
+        if (quantity == 100){
+            Toast.makeText(this,"100 cups of coffee is way to high you " +
+                    "need to cut it!", Toast.LENGTH_SHORT ).show();
+            return;
+        }
+
         quantity = quantity + 1;
         displayQuantity(quantity);
     }
 
     public void decrement(View view) {
+
+        if (quantity == 1){
+            Toast.makeText(this,"1 cup of coffee is way to low you " +
+                    "need to add it!", Toast.LENGTH_SHORT ).show();
+            return;
+        }
+
         quantity = quantity - 1;
         displayQuantity(quantity);
     }
@@ -51,11 +72,10 @@ public class MainActivity extends AppCompatActivity {
         EditText nameEditText = findViewById(R.id.name_EditText);
         String name = nameEditText.getText().toString();
 
-        int price = calculatePrice();
-        String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate, name);
-        displayMessage(priceMessage);
+        int price = calculatePrice(hasWhippedCream, hasChocolate);
+        createOrderSummary(price, hasWhippedCream, hasChocolate, name);
+        //displayMessage(priceMessage);
     }
-
 
 
     /**
@@ -77,18 +97,31 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the given text on the screen.
      */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
-    }
+//    private void displayMessage(String message) {
+//        TextView orderSummaryTextView = findViewById(R.id.order_summary_text_view);
+//        orderSummaryTextView.setText(message);
+//    }
 
     /**
      * Calculates the price of an order
+     * @param addWhippedCream
+     * @param addChocolate
      * @return total price
      */
-    private int calculatePrice(){
-        int price = quantity * 5;
-        return price;
+    private int calculatePrice(boolean addWhippedCream, boolean addChocolate){
+        //Price per cup of coffee
+        int basePrice = 5;
+
+        //add 1 if whipped cream topping is selected
+        if (addWhippedCream){
+            basePrice = basePrice + 1;
+        }
+        //add 2 is chocolate is selected
+        if (addChocolate){
+            basePrice = basePrice + 2;
+        }
+
+        return quantity * basePrice;
     }
 
     /**
@@ -106,6 +139,22 @@ public class MainActivity extends AppCompatActivity {
         priceMessage += "\nAdd Chocolate? " + addChocolate;
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal: Ksh. " + price + "\nThank you!";
+
+        Intent intent  = new Intent(Intent.ACTION_SENDTO);
+        //intent.setType("*/*");
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, "");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java Order for " + customerName);
+        intent.putExtra(Intent.EXTRA_TEXT, priceMessage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
         return priceMessage;
+
+
+
+
+
     }
 }
