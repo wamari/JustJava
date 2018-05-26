@@ -134,10 +134,10 @@ public class MainActivity extends AppCompatActivity {
     private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate,
                                       String customerName){
         String priceMessage = getString(R.string.order_summary_name, customerName);
-        priceMessage += "\n" + getString(R.string.add_whipped_cream) + addWhippedCream;
-        priceMessage += "\n" + getString(R.string.add_chocolate)+ addChocolate;
-        priceMessage += "\n" + getString(R.string.quantity) + quantity;
-        priceMessage += "\n" + getString(R.string.total) + price ;
+        priceMessage += "\n" + getString(R.string.add_whipped_cream, addWhippedCream);
+        priceMessage += "\n" + getString(R.string.add_chocolate, addChocolate);
+        priceMessage += "\n" + getString(R.string.quantity, quantity);
+        priceMessage += "\n" + getString(R.string.total, price);
         priceMessage += "\n" + getString(R.string.thank_you);
 
         Intent intent  = new Intent(Intent.ACTION_SENDTO);

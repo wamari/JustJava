@@ -6,10 +6,10 @@
     <string name="name">Name</string>
     <string name="whipped_cream">Whipped Cream</string>
     <string name="chocolate">Chocolate</string>
-    <string name="quantity">Quantity</string>
+    <string name="quantity">Quantity<xliff:g id="quantity" example="2">%d</xliff:g></string>
     <string name="order_summary">Order Summary</string>
     <string name="order">Order</string>
-    <string name="add_whipped_cream">Add Whipped Cream:</string>
-    <string name="add_chocolate">Add Chocolate:</string>
-    <string name="total">Total: Ksh. </string>
+    <string name="add_whipped_cream">Add Whipped Cream:<xliff:g id="addWhippedCream" example="true">%b</xliff:g></string>
+    <string name="add_chocolate">Add Chocolate:<xliff:g id="addChocolate" example="true">%b</xliff:g></string>
+    <string name="total">Total: Ksh. <xliff:g id="price" example="$10">%s</xliff:g></string>
 </resources>
