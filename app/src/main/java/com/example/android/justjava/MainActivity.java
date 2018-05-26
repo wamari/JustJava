@@ -86,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText("" + numberOfCoffees);
     }
 
-    /**
-     * This method displays the given price on the screen.
-     */
-    private void displayPrice(int number) {
-        //TextView priceTextView = findViewById(R.id.price_text_view);
-        //priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
-    }
+//    /**
+//     * This method displays the given price on the screen.
+//     */
+//    private void displayPrice(int number) {
+//        //TextView priceTextView = findViewById(R.id.price_text_view);
+//        //priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+//    }
 
     /**
      * This method displays the given text on the screen.
@@ -133,11 +133,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate,
                                       String customerName){
-        String priceMessage = "Name: " + customerName;
-        priceMessage += "\nAdd Whipped Cream? " + addWhippedCream;
-        priceMessage += "\nAdd Chocolate? " + addChocolate;
-        priceMessage += "\nQuantity: " + quantity;
-        priceMessage += "\nTotal: Ksh. " + price + "\nThank you!";
+        String priceMessage = getString(R.string.order_summary_name, customerName);
+        priceMessage += "\n" + getString(R.string.add_whipped_cream) + addWhippedCream;
+        priceMessage += "\n" + getString(R.string.add_chocolate)+ addChocolate;
+        priceMessage += "\n" + getString(R.string.quantity) + quantity;
+        priceMessage += "\n" + getString(R.string.total) + price ;
+        priceMessage += "\n" + getString(R.string.thank_you);
 
         Intent intent  = new Intent(Intent.ACTION_SENDTO);
         //intent.setType("*/*");
